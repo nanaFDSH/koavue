@@ -4,6 +4,9 @@ const Koa = require('koa');
 //导入参数解析中间件 post get请求 json读取
 const bodyParser = require('koa-bodyparser');
 
+//导入跨域中间件
+const cors = require('koa2-cors');
+
 //路由控制器
 const controller = require('./controller');
 
@@ -22,6 +25,9 @@ app.use(async (ctx, next) => {
 //连接mongodb 数据库 ，地址为hero的地址以及集合名称。
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/hero');
+
+//使用跨域访问中间件。
+app.use(cors());
 
 //使用参数解析中间件,注意，此中间件必须在router前被使用 parse request body:
 app.use(bodyParser());
